@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Suswaad Café — Cart</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #16a34a;
+      color: white;
+      padding: 14px 18px;
+      border-radius: 10px;
+      opacity: 0;
+      transition: 0.4s ease;
+      z-index: 9999;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container navbar">
+    <div class="brand">Suswaad Café</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu/index.html">Menu</a></li>
+        <li><a href="prebooking/index.html">Prebooking</a></li>
+        <li><a href="cart.html" class="active">🛒 Cart</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-top:90px;">
+    <div class="container">
+      <h2>Your Cart</h2>
+
+      <div id="cartItems" style="min-height:200px;"></div>
+
+      <div style="margin-top:30px; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08); text-align:right;">
+        <div id="cartTotal" style="font-size:26px; font-weight:700; color:var(--accent); margin-bottom:15px;">₹0</div>
+
+        <div id="cartActions" style="display:none;">
+          <button class="btn" onclick="clearCart()">🧹 Clear Cart</button>
+          <a href="prebooking/pick.html" class="btn" onclick="show()">✅ Proceed to Checkout</a>
+        </div>
+
+        <div id="emptyCartMsg" style="display:none; color:var(--muted); font-style:italic;">
+          Your cart is empty. <a href="menu/index.html">Continue shopping →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Suswaad Café · Designed by Siddhi</p>
+  </div>
+</footer>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ================================
+   CONSTANT
+================================ */
+const CART_KEY = "suswaad_cart";
+
+/* ================================
+   TOAST
+================================ */
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+/* ================================
+   CLEAR CART
+================================ */
+function clearCart() {
+  if (!confirm("Are you sure you want to clear the cart?")) return;
+
+  localStorage.removeItem(CART_KEY);
+  renderCart();
+  showToast("🧹 Cart cleared successfully");
+}
+
+/* ================================
+   REMOVE ITEM
+================================ */
+function removeFromCart(index) {
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+  cart.splice(index, 1);
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  renderCart();
+}
+
+/* ================================
+   UPDATE QTY
+================================ */
+function updateQty(index, change) {
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+  cart[index].qty += change;
+  if (cart[index].qty <= 0) cart.splice(index, 1);
+
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  renderCart();
+}
+function show() {
+ alert("order placed successfullt.!");
+}
+/* ================================
+   RENDER CART
+================================ */
+function renderCart() {
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+
+  const cartItems = document.getElementById("cartItems");
+  const cartTotal = document.getElementById("cartTotal");
+  const cartActions = document.getElementById("cartActions");
+  const emptyMsg = document.getElementById("emptyCartMsg");
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = `
+      <div style="text-align:center; padding:50px; color:var(--muted);">
+        <div style="font-size:64px;">🛒</div>
+        <p>Your cart is empty</p>
+      </div>
+    `;
+    cartTotal.textContent = "₹0";
+    cartActions.style.display = "none";
+    emptyMsg.style.display = "block";
+    return;
+  }
+
+  let total = 0;
+  emptyMsg.style.display = "none";
+  cartActions.style.display = "block";
+
+  cartItems.innerHTML = cart.map((item, index) => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+
+    return `
+      <div style="display:flex; justify-content:space-between; align-items:center; padding:15px; margin-bottom:10px; background:white; border-radius:10px;">
+        <div>
+          <strong>${item.name}</strong><br>
+          ₹${item.price} each
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button onclick="updateQty(${index}, -1)">−</button>
+          <span>${item.qty}</span>
+          <button onclick="updateQty(${index}, 1)">+</button>
+          <strong>₹${subtotal}</strong>
+          <button onclick="removeFromCart(${index})">✖</button>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  cartTotal.textContent = `Total: ₹${total}`;
+}
+
+/* ================================
+   INIT
+================================ */
+document.addEventListener("DOMContentLoaded", renderCart);
+</script>
+
+</body>
+</html>

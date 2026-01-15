@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
+  <!-- Same header with cart -->
   <header class="header">
     <div class="container navbar">
       <div class="brand">Suswaad Café</div>
@@ -17,6 +18,7 @@
           <li><a href="../about.html">About Us</a></li>
           <li><a href="index.html">Menu</a></li>
           <li><a href="../prebooking/index.html">Prebooking</a></li>
+          <li><a href="../cart.html" class="cart-link">🛒 <span id="cartBadge"></span></a></li>
         </ul>
       </nav>
       <div class="hamburger" onclick="toggleNav()">☰</div>
@@ -27,91 +29,21 @@
     <section class="section" style="padding-top:90px;">
       <div class="container">
         <h2>Explore Our Menu</h2>
-        <p class="lead">A feast of flavors, crafted with love. Click a category to explore items.</p>
-
-        <div class="menu-cats">
-          <a class="btn" href="breakfast.html">Breakfast</a>
-          <a class="btn" href="lunch.html">Lunch</a>
-          <a class="btn" href="sandwiches.html">Sandwiches</a>
-          <a class="btn" href="beverages.html">Beverages</a>
-        </div>
-
-       
-
-        <div class="menu-items" style="margin-top:18px;">
-          <div class="menu-item card">
-            <img src="images/sandwich1.png">
-            <div class="card-body">
-              <div class="meta">
-                <div><div class="title">Veg Club Sandwich</div><div class="small">Triple-decker goodness</div></div>
-                <div style="text-align:right;"><div class="price">₹95</div><div class="rating">⭐ 4.6</div></div>
-              </div>
-            </div>
-          </div>
-<div class="menu-items" style="margin-top:18px;">
-          <div class="menu-item card">
-            <img src="images/lunch2.png">
-            <div class="card-body">
-              <div class="meta">
-                <div><div class="title">pav bhaji</div><div class="small">Satisfying food</div></div>
-                <div style="text-align:right;"><div class="price">₹120</div><div class="rating">⭐ 4.5</div></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item card">
-            <img src="images/l3.png">
-            <div class="card-body">
-              <div class="meta">
-                <div><div class="title">Hakka Noodles</div><div class="small">Classic stir-fried noodles</div></div>
-                <div style="text-align:right;"><div class="price">₹90</div><div class="rating">⭐ 4.4</div></div>
-              </div>
-            </div>
-          </div>
-   <div class="menu-items" style="margin-top:18px;">
-          <!-- Pohe + Shev -->
-          <div class="menu-item card">
-            <img src="images/breakfast2.png">
-            <div class="card-body">
-              <div class="meta">
-                <div>
-                  <div class="title">Pohe + Shev</div>
-                  <div class="small">Maharashtrian magic on your plate — light, yet filling</div>
-                </div>
-                <div style="text-align:right;">
-                  <div class="price">₹25</div>
-                  <div class="rating">⭐ 4.8</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Upma + Shev -->
-          <div class="menu-item card">
-            <img src="images/breakfast3.png">
-            <div class="card-body">
-              <div class="meta">
-                <div><div class="title">Upma + Shev</div><div class="small">Comforting semolina upma with crunchy sev</div></div>
-                <div style="text-align:right;"><div class="price">₹30</div><div class="rating">⭐ 4.6</div></div>
-              </div>
-            </div>
-          </div>
-
+        <p class="lead">A feast of flavors, crafted with love. Search or filter below.</p>
         
-          <div class="menu-item card">
-            <img src="images/sandwich2.png" alt="Cheese Garlic Toast">
-            <div class="card-body">
-              <div class="meta">
-                <div><div class="title">Chocolate Sandwich</div><div class="small">Crispy and sweet</div></div>
-                <div style="text-align:right;"><div class="price">₹70</div><div class="rating">⭐ 4.7</div></div>
-              </div>
-            </div>
-          </div>
-
+        <!-- Search -->
+        <input type="text" id="menuSearch" placeholder="Search menu items..." class="form" style="margin-bottom: 20px;">
+        
+        <!-- Category tabs -->
+        <div class="menu-cats">
+          <button class="btn" onclick="renderMenu('breakfast')">Breakfast</button>
+          <button class="btn" onclick="renderMenu('lunch')">Lunch</button>
+          <button class="btn" onclick="renderMenu('sandwiches')">Sandwiches</button>
+          <button class="btn" onclick="renderMenu('beverages')">Beverages</button>
+          <button class="btn" onclick="renderMenu()">All</button>
         </div>
 
-        </div>
-
+        <div class="menu-items"></div>
       </div>
     </section>
   </main>
@@ -122,6 +54,7 @@
     </div>
   </footer>
 
+  <script src="../items.js"></script>
   <script src="../script.js"></script>
 </body>
 </html>

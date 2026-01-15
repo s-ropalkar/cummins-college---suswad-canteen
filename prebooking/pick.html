@@ -16,7 +16,8 @@
           <li><a href="../index.html">Home</a></li>
           <li><a href="../about.html">About Us</a></li>
           <li><a href="../menu/index.html">Menu</a></li>
-          <li><a href="index.html">Prebooking</a></li>
+          <li><a href="index.html" class="active">Prebooking</a></li>
+          <li><a href="../cart.html" class="cart-link">🛒<span id="cartBadge"></span></a></li>
         </ul>
       </nav>
       <div class="hamburger" onclick="toggleNav()">☰</div>
@@ -26,61 +27,48 @@
   <main>
     <section class="section" style="padding-top:90px;">
       <div class="container">
-        <h2>Pick Your Lunch — Pre-Book Your Order</h2>
-        <p class="lead">Pre-book now, skip the lines, grab your food, and chill!</p>
+        <h2>Pick Your Lunch — Multiple Items Allowed</h2>
+        <p class="lead">Decide your food items, pre-book for pickup. Canteen open ! <strong>saving time, leading career</strong>.</p>
 
         <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:18px;">
           <div style="flex:1; min-width:320px;">
             <div class="form">
               <form id="pickForm">
-                <label>Full name</label>
+                <label>Full Name *</label>
                 <input name="fullname" type="text" placeholder="Your full name" required>
 
-                <label>Email</label>
-                <input name="email" type="email" placeholder="d@gmail.com" required>
+                <label>Email *</label>
+                <input name="email" type="email" placeholder="student@college.edu" required>
 
-                <label>Date</label>
-                <input name="date" type="date" required>
+                <label>Pickup Date *</label>
+                <input name="date" type="date" id="pickupDate" required onchange="checkCanteenHours()">
 
-                <label>Time</label>
-                <input name="time" type="time" required>
+                <label>Pickup Time * (8AM-5PM)</label>
+                <input name="time" type="time" id="pickupTime" required onchange="checkCanteenHours()">
 
-                <label>Pick your Lunch (item)</label>
-                <select name="item" required>
-                  <option value="">-- choose an item --</option>
-         
-                  <option>Pohe + Shev</option>
-                  <option>Wadapav</option>
-                 
-                  <option>Upma + Shev</option>
-                 
-                
-                 
-                  <option>Sabudana Khichdi</option>
-                 
-                  
-                  <option>Hakka Noodles</option>
-                  <option>Veg Fried Rice</option>
-                  <option>Cheese Garlic Toast</option>
-                  <option>Veg Cheese Toast Sandwich</option>
-                  <option>Chatni Toast Sandwich</option>
-                  <option>Cheese Toast Sandwich</option>
-                  <option>Veg Club Sandwich</option>
-                  <option>Jam Sandwich</option>
-                  <option>Bread Butter Sandwich</option>
-                  <option>Chocolate Toast Sandwich</option>
-                  <option>Cold Coffee</option>
-                  <option>Mango Milkshake</option>
-                  <option>Orange Juice</option>
-                  <option>Badam Kesar Milkshake</option>
-                  <option>Mix Fruit Juice</option>
-                  <option>Oreo Milkshake</option>
-                  <option>Lemon Juice</option>
-                  <option>Strawberry Milkshake</option>
-                </select>
+                <label>Select Items (Multiple OK)</label>
+                <div style="border:1px solid #e6e6e6; padding:15px; border-radius:8px; background:white; min-height:120px;">
+                  <div style="display:flex; flex-wrap:wrap; gap:8px; max-height:200px; overflow-y:auto;">
+                    <label><input type="checkbox" name="items[]" value="Pohe + Shev" onchange="updateOrderSummary()"> Pohe + Shev (₹25)</label>
+                    <label><input type="checkbox" name="items[]" value="Upma + Shev" onchange="updateOrderSummary()"> Upma + Shev (₹30)</label>
+                    <label><input type="checkbox" name="items[]" value="Pav Bhaji" onchange="updateOrderSummary()"> Pav Bhaji (₹120)</label>
+                    <label><input type="checkbox" name="items[]" value="Hakka Noodles" onchange="updateOrderSummary()"> Hakka Noodles (₹90)</label>
+                    <label><input type="checkbox" name="items[]" value="Veg Club Sandwich" onchange="updateOrderSummary()"> Veg Club (₹95)</label>
+                    <label><input type="checkbox" name="items[]" value="Cold Coffee" onchange="updateOrderSummary()"> Cold Coffee (₹60)</label>
+                  </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div id="orderSummary" style="display:none; background:#f0f8f4; padding:15px; border-radius:8px; margin:15px 0;">
+                  <h4>📋 Your Order</h4>
+                  <div id="selectedItemsList"></div>
+                  <div id="totalPrice" style="font-weight:700; color:var(--accent); font-size:18px; margin:10px 0;"></div>
+                  <div id="readyMessage" style="font-size:14px; color:#2d7a4b;"></div>
+                </div>
 
                 <div style="margin-top:10px;">
-                  <button class="btn" type="submit">Pre-Book Now</button>
+                  <button class="btn" type="submit" id="submitBtn" disabled>Pre-Book Now</button>
+                  <div id="timeWarning" style="color:#b23a3a; font-size:13px; margin-top:5px; display:none;">⚠️ Invalid time! Canteen open only 8AM-5PM</div>
                 </div>
               </form>
             </div>
@@ -88,46 +76,16 @@
 
           <div style="flex:1; min-width:260px;">
             <div class="card">
-              <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=80" alt="pickup">
+              <img src="../images/pick.jpg" alt="Quick pickup">
               <div class="card-body">
-                <h3>Order & Pick</h3>
-                <p class="small">We will prepare your meal at the chosen time. Your order is saved locally and you’ll get a confirmation message on this page.</p>
+                <h3>🕒 Ready When You Are</h3>
+                <p class="small"><strong>Your order is considered!</strong> We'll prepare everything at your pickup time. Orders saved locally and auto-cancel after 2hrs if not picked up..</p>
               </div>
             </div>
           </div>
         </div>
 
-        <section style="margin-top:22px;">
-          <h3>Popular Picks</h3>
-          <div class="pick-list" style="margin-top:12px;">
-            <div class="pick-item">
-              <img src="/images/lunch2.png">
-              <div>
-                <div style="font-weight:600">pavbhaji</div>
-                <div class="small">₹120 · ⭐ 4.7</div>
-              </div>
-            </div>
-
-            <div class="pick-item">
-              <img src="/images/breakfast2.png">
-              <div>
-                <div style="font-weight:600">Pohe + Shev</div>
-                <div class="small">₹25 · ⭐ 4.8</div>
-              </div>
-            </div>
-
-           
-
-            <div class="pick-item">
-              <img src="/images/beverage1.png" alt="">
-              <div>
-                <div style="font-weight:600">shake</div>
-                <div class="small">₹60 · ⭐ 4.6</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        
       </div>
     </section>
   </main>
@@ -139,5 +97,80 @@
   </footer>
 
   <script src="../script.js"></script>
+  <script>
+    // Canteen timing validation (8AM-5PM)
+    function checkCanteenHours() {
+      const date = document.getElementById('pickupDate').value;
+      const time = document.getElementById('pickupTime').value;
+      const submitBtn = document.getElementById('submitBtn');
+      const warning = document.getElementById('timeWarning');
+      
+      if (!date || !time) return;
+      
+      const [hours, minutes] = time.split(':').map(Number);
+      const now = new Date();
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Past time check
+      if (date === today && now.getHours() * 60 + now.getMinutes() > hours * 60 + minutes) {
+        warning.textContent = '⚠️ Cannot book past time!';
+        warning.style.display = 'block';
+        submitBtn.disabled = true;
+        return;
+      }
+      
+      // Canteen hours check
+      if (hours < 8 || hours >= 17) {
+        warning.textContent = '⚠️ Canteen open only 8AM-5PM!';
+        warning.style.display = 'block';
+        submitBtn.disabled = true;
+        return;
+      }
+      
+      warning.style.display = 'none';
+      submitBtn.disabled = false;
+    }
+
+    // Update order summary
+    function updateOrderSummary() {
+      const checkboxes = document.querySelectorAll('input[name="items[]"]:checked');
+      const summary = document.getElementById('orderSummary');
+      const itemsList = document.getElementById('selectedItemsList');
+      const totalPrice = document.getElementById('totalPrice');
+      const readyMessage = document.getElementById('readyMessage');
+      
+      if (checkboxes.length === 0) {
+        summary.style.display = 'none';
+        return;
+      }
+      
+      const items = Array.from(checkboxes).map(cb => cb.value);
+      const total = items.reduce((sum, item) => {
+        const prices = { 'Pohe + Shev': 25, 'Upma + Shev': 30, 'Pav Bhaji': 120, 'Hakka Noodles': 90, 'Veg Club Sandwich': 95, 'Cold Coffee': 60 };
+        return sum + (prices[item] || 0);
+      }, 0);
+      
+      itemsList.innerHTML = items.map(item => `<div>• ${item}</div>`).join('');
+      totalPrice.textContent = `Total: ₹${total}`;
+      readyMessage.textContent = `Ready at your selected time ✨`;
+      summary.style.display = 'block';
+    }
+
+    // Show recent orders
+    function showRecentOrders() {
+      const orders = JSON.parse(localStorage.getItem('suswaad_preorders') || '[]');
+      const recent = document.getElementById('recentOrders');
+      if (orders.length > 0) {
+        recent.innerHTML = orders.slice(-3).map(order => 
+          `<div style="background:white; padding:12px; border-radius:8px; margin:5px 0; font-size:13px;">
+            📦 ${order.items.join(', ')} | ${order.time} | ${new Date(order.created).toLocaleDateString()}
+          </div>`
+        ).join('');
+        recent.style.display = 'block';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', showRecentOrders);
+  </script>
 </body>
 </html>

@@ -14,9 +14,10 @@
       <nav>
         <ul id="navLinks" class="nav-links">
           <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
+          <li><a href="about.html" class="active">About Us</a></li>
           <li><a href="menu/index.html">Menu</a></li>
           <li><a href="prebooking/index.html">Prebooking</a></li>
+          <li><a href="cart.html" class="cart-link">🛒<span id="cartBadge"></span></a></li>
         </ul>
       </nav>
       <div class="hamburger" onclick="toggleNav()">☰</div>
@@ -24,11 +25,16 @@
   </header>
 
   <main>
-    <section class="section" style="padding-top:90px;">
+    
+    <section class="hero" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/images/hero.webp'); margin-top: 64px;">
+      <div class="container" style="text-align: center; color: white; padding: 100px 20px;">
+        <h1 style="font-size: 48px; margin-bottom: 20px;">Our Story</h1>
+        <p style="font-size: 20px; max-width: 600px; margin: 0 auto;">Founded in 2012, Suswaad Café has been serving delicious, freshly prepared dishes made with the finest ingredients..</p>
+      </div>
+    </section>
+ <section class="section" style="padding-top:90px;">
       <div class="container">
-        <h2>About Us</h2>
-        <p class="lead">Founded in 2012, Suswaad Café has been serving delicious, freshly prepared dishes made with the finest ingredients.</p>
-
+       
         <div class="grid" style="margin-top:20px;">
           <div>
             <div class="card">
@@ -43,7 +49,9 @@
           <div>
             <h3>Our Vision</h3>
             <p>To be the heartbeat of our community — a cozy haven where every cup inspires connections, creativity, and belonging. We follow sustainable practices and focus on artisanal delights that create cherished memories.</p>
-
+            <br>
+            <br>
+<hr>
             <h4 style="margin-top:14px;">Core Values</h4>
             <ul style="margin-top:8px; color:var(--muted);">
               <li>Quality ingredients & handcrafted preparation</li>
@@ -54,11 +62,67 @@
         </div>
       </div>
     </section>
+    <section class="section">
+      <div class="container">
+        <div class="grid">
+          <div>
+            <div class="card">
+              <img src="/images/patis.jpg" alt="Our Team" style="height: 250px;">
+              <div class="card-body">
+                <h3>Student-First Canteen</h3>
+                <p><strong>Founded 2012</strong> by college staff for students. From Pohe at 8:30AM to quick sandwiches between lectures, we're your campus companion.</p>
+                <ul style="color: var(--muted); font-size: 14px;">
+                  <li>✅ 5000+ students served daily</li>
+                  <li>✅ Fresh prep every 2 hours</li>
+                  <li>✅ Budget-friendly prices</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            <div>
+              <h3 style="color: var(--accent);">Why Students Love Us</h3>
+              <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin-top: 12px;">
+                <p>"<em>Best vada pav between lectures! Quick service, fresh food, perfect for rushed schedules.</em>"</p>
+                <span style="font-size: 13px; color: var(--muted); display: block; margin-top: 8px;">— Student, COEP</span>
+              </div>
+            </div>
+
+            <div>
+              <h4>Opening Hours</h4>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 12px;">
+                <div style="text-align: center; padding: 12px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                  <div style="font-size: 24px; font-weight: 700; color: #2d7a4b;">8:00 AM</div>
+                  <div style="font-size: 12px; color: var(--muted);">Open</div>
+                </div>
+                <div style="text-align: center; padding: 12px; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                  <div style="font-size: 24px; font-weight: 700; color: #b23a3a;">5:00 PM</div>
+                  <div style="font-size: 12px; color: var(--muted);">Close</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: #f8f9fa;">
+      <div class="container center">
+        <h2 style="color: var(--accent);">Fresh Every Day</h2>
+        <p class="lead">Maharashtrian breakfasts, quick lunch specials, fresh shakes — made when you order.</p>
+        <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
+          <a href="menu/index.html" class="btn">View Menu</a>
+          <a href="prebooking/pick.html" class="btn" style="background: #2d7a4b;">Pre-Book Lunch</a>
+        </div>
+      </div>
+    </section>
+    
   </main>
 
   <footer>
     <div class="container">
-      <p>© 2025 Suswaad Café · Designed by Siddhi</p>
+      <p>© 2025 Suswaad Café · Designed by Siddhi · Serving Pimpri students since 2012</p>
     </div>
   </footer>
 

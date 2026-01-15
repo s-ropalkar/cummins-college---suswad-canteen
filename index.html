@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Suswaad Café — Home</title>
+  <title>Suswaad Café — Mksss Cummins college of Engineering for women</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,10 +13,11 @@
       <div class="brand">Suswaad Café</div>
       <nav>
         <ul id="navLinks" class="nav-links">
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../about.html">About Us</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="menu/index.html">Menu</a></li>
           <li><a href="prebooking/index.html">Prebooking</a></li>
+          <li><a href="cart.html" class="cart-link" id="cartLink">🛒 <span id="cartBadge"></span></a></li>
         </ul>
       </nav>
       <div class="hamburger" onclick="toggleNav()">☰</div>
@@ -24,28 +25,31 @@
   </header>
 
   <main>
+   
     <section class="hero" id="home">
       <div class="container hero-left">
-        <h1>Welcome to Suswaad Café</h1>
+         
+        <h1>Welcome to Suswaad Café <span id="clock"></span></h1>
         <p>A taste of tradition — cozy vibes, fresh flavors, and warm hospitality since 2012.</p>
         <a class="btn" href="menu/index.html">Explore Menu</a>
       </div>
     </section>
 
+    
     <section class="section">
       <div class="container">
         <h2>Why Suswaad?</h2>
         <p class="lead">Fresh ingredients · Warm service · Community-first</p>
         <div class="grid" style="margin-top:24px;">
           <div class="card">
-            <img src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80" alt="">
+            <img src="/images/girls.webp" alt="Cozy cafe">
             <div class="card-body">
               <h3>Cozy, Inviting Space</h3>
               <p class="small">A place to catch up, study, or relax with a hot cup of coffee.</p>
             </div>
           </div>
           <div class="card">
-            <img src="/images/image.png" alt="">
+            <img src="images/image.png" alt="Fresh food">
             <div class="card-body">
               <h3>Always Fresh</h3>
               <p class="small">From breakfast to evening bites — made-to-order with care.</p>
@@ -73,6 +77,7 @@
     </div>
   </footer>
 
+  <script src="items.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
